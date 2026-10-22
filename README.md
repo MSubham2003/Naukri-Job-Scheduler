@@ -174,6 +174,18 @@ pretending the session expired. The GitHub workflow runs `--headful` under
 when their DOM is over-patched; that is why `playwright-stealth` is *not* used
 (only the launch flags plus a `navigator.webdriver` mask are applied).
 
+**`Missing session` in CI, or the secret will not save** - GitHub Actions
+secrets are limited to 48 KB. Playwright's `auth_state.json` is usually ~40 KB,
+so plain `base64` (~53 KB) is **too large**. Compress it first:
+
+```bash
+gzip -9 -c auth_state.json | base64 -w 0   # ~9 KB, fits
+```
+
+Paste that into `NAUKRI_STORAGE_STATE`; the workflow detects gzip automatically
+and also accepts plain base64 or raw JSON. Alternatively, store only the cookie
+array from `auth_state.json` in `NAUKRI_COOKIES`.
+
 **Session expired** - re-run `python -m src.local_auth` and update the
 `NAUKRI_STORAGE_STATE` secret.
 
@@ -208,8 +220,8 @@ peak load. Add these repository secrets:
 
 | Secret | Description |
 | --- | --- |
-| `NAUKRI_STORAGE_STATE` | Base64 of `auth_state.json` (`base64 -w 0 auth_state.json`) |
-| `NAUKRI_COOKIES` | Alternative: JSON cookie array |
+| `NAUKRI_STORAGE_STATE` | **gzip + base64** of `auth_state.json` (`gzip -9 -c auth_state.json \| base64 -w 0`) |
+| `NAUKRI_COOKIES` | Alternative: JSON cookie array only |
 | `DATABASE_URL` | Neon PostgreSQL connection string |
 | `SMTP_*` / `MAIL_TO` | SMTP settings (or the legacy `SENDER_*` / `RECIPIENT_EMAIL`) |
 

@@ -39,13 +39,47 @@ jobs:
       - name: Restore Naukri Session
         env:
           NAUKRI_STORAGE_STATE: ${{ secrets.NAUKRI_STORAGE_STATE }}
+          NAUKRI_COOKIES: ${{ secrets.NAUKRI_COOKIES }}
         run: |
-          if [ -n "$NAUKRI_STORAGE_STATE" ]; then
-            printf '%s' "$NAUKRI_STORAGE_STATE" | base64 -d > auth_state.json
-            echo "Restored auth_state.json from NAUKRI_STORAGE_STATE"
-          else
-            echo "No NAUKRI_STORAGE_STATE secret; will use NAUKRI_COOKIES if provided."
-          fi
+          set -euo pipefail
+          python - <<'PY'
+          import base64
+          import gzip
+          import json
+          import os
+          import pathlib
+
+          raw = os.environ.get("NAUKRI_STORAGE_STATE", "").strip()
+          cookies_raw = os.environ.get("NAUKRI_COOKIES", "").strip()
+
+          if raw:
+              if raw.startswith("{"):
+                  decoded = raw.encode()
+              else:
+                  decoded = base64.b64decode(raw)
+              try:
+                  decoded = gzip.decompress(decoded)
+              except OSError:
+                  pass
+              state = json.loads(decoded)
+              cookies = state.get("cookies") or []
+              if not cookies:
+                  raise SystemExit("NAUKRI_STORAGE_STATE decoded but contains no cookies")
+              pathlib.Path("auth_state.json").write_text(json.dumps(state), encoding="utf-8")
+              print(f"Restored {len(cookies)} cookie(s) to auth_state.json")
+          elif cookies_raw:
+              data = json.loads(cookies_raw)
+              cookies = data if isinstance(data, list) else data.get("cookies", [])
+              if not cookies:
+                  raise SystemExit("NAUKRI_COOKIES contains no cookies")
+              print(f"Using {len(cookies)} cookie(s) from NAUKRI_COOKIES")
+          else:
+              raise SystemExit(
+                  "No Naukri session supplied. Set NAUKRI_STORAGE_STATE to "
+                  "`gzip -9 -c auth_state.json | base64 -w 0` (under 48 KB), "
+                  "or set NAUKRI_COOKIES to the cookies JSON array."
+              )
+          PY
 
       - name: Validate Setup
         env:

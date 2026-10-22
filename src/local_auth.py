@@ -2,8 +2,8 @@
 
 Run ``python -m src.local_auth``, log in (including any OTP/CAPTCHA), then press
 ENTER: the browser session is written to ``auth_state.json`` so headless runs
-can reuse it. For CI, base64-encode the file into the ``NAUKRI_STORAGE_STATE``
-secret.
+can reuse it. For CI, gzip and base64-encode the file into the
+``NAUKRI_STORAGE_STATE`` secret (raw base64 often exceeds GitHub's 48 KB limit).
 """
 
 from __future__ import annotations
@@ -53,10 +53,20 @@ def capture_session(auth_file: Path) -> int:
         return 1
 
     logger.info("Saved %d cookies to %s", cookie_count, auth_file)
+    size = auth_file.stat().st_size
     print("\nNext steps:")
     print(f"  1. Keep {auth_file} private (it is gitignored).")
-    print("  2. For GitHub Actions, add it as a base64 secret:")
-    print(f"     base64 -w 0 {auth_file}   # -> NAUKRI_STORAGE_STATE")
+    print("  2. For GitHub Actions, add NAUKRI_STORAGE_STATE (gzip keeps it under")
+    print("     GitHub's 48 KB secret limit):")
+    print(f"       gzip -9 -c {auth_file} | base64 -w 0")
+    print("\n     Or use NAUKRI_COOKIES with only the cookie array:")
+    print(
+        "       python -c \"import json; "
+        f"print(json.dumps(json.load(open('{auth_file}'))['cookies'], "
+        "separators=(',', ':')))\""
+    )
+    print(f"\n  Session file size: {size:,} bytes (raw base64 would be "
+          f"{size * 4 // 3:,} bytes; the 48 KB secret limit is 49,152).")
     print("  3. Verify with: python main.py --self-check")
     return 0
 
