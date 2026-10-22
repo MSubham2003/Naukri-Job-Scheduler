@@ -1,0 +1,32 @@
+services:
+  - type: cron
+    name: naukri-apply-bot
+    runtime: docker
+    schedule: "30 2,5,9,12 * * *"
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: 1c-2g
+    autoDeployTrigger: commit
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: NAUKRI_COOKIES
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_FROM
+        sync: false
+      - key: MAIL_TO
+        sync: false
+      - key: RESUME_PATH
+        value: assets/Subham_Resume.pdf
+      - key: STORAGE_STATE_PATH
+        value: /app/auth_state.json
+      - key: LOG_LEVEL
+        value: INFO

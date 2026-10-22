@@ -1,0 +1,15 @@
+.git
+.github
+.venv
+venv
+__pycache__
+*.pyc
+.pytest_cache
+.env
+auth_state.json
+storage_state.json
+reports
+logs
+data
+*.log
+debug_*.png

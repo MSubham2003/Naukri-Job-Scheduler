@@ -1,0 +1,133 @@
+{
+  "search_queries": [
+    {
+      "query": "Java Backend Developer",
+      "location": ""
+    },
+    {
+      "query": "Spring Boot Developer",
+      "location": ""
+    },
+    {
+      "query": "REST API Developer",
+      "location": ""
+    },
+    {
+      "query": "Java Software Engineer",
+      "location": ""
+    },
+    {
+      "query": "Java Developer",
+      "location": "bangalore"
+    },
+    {
+      "query": "Java Developer",
+      "location": "hyderabad"
+    },
+    {
+      "query": "Java Developer",
+      "location": "pune"
+    },
+    {
+      "query": "Java Developer",
+      "location": "bhubaneswar"
+    },
+    {
+      "query": "Junior Java Developer",
+      "location": ""
+    },
+    {
+      "query": "Java Fresher",
+      "location": ""
+    }
+  ],
+  "experience_filter": {
+    "min_years": 0,
+    "max_years": 2
+  },
+  "mandatory_keywords": [
+    "java",
+    "spring",
+    "backend",
+    "rest",
+    "api",
+    "microservices"
+  ],
+  "preferred_keywords": [
+    "spring boot",
+    "rest api",
+    "restful",
+    "microservices",
+    "mysql",
+    "hibernate",
+    "jpa",
+    "docker",
+    "postman",
+    "git",
+    "maven",
+    "aws"
+  ],
+  "title_keywords": [
+    "java",
+    "backend",
+    "spring",
+    "software engineer",
+    "software developer",
+    "sde",
+    "programmer",
+    "rest api"
+  ],
+  "blacklist_keywords": [
+    "architect",
+    "lead",
+    "senior lead",
+    "principal",
+    "manager",
+    "director",
+    "php",
+    ".net",
+    "c#",
+    "salesforce",
+    "sap",
+    "mainframe",
+    "qa engineer",
+    "test engineer",
+    "manual test",
+    "automation test",
+    "devops engineer",
+    "data engineer",
+    "android developer",
+    "ios developer",
+    "flutter"
+  ],
+  "blacklist_title_only": true,
+  "require_all_mandatory": false,
+  "minimum_match_score": 0,
+  "max_applications_per_run": 20,
+  "max_applications_per_query": 4,
+  "retry_unanswered": true,
+  "warm_up_homepage": true,
+  "delays": {
+    "card_scan_min_sec": 1.2,
+    "card_scan_max_sec": 2.8,
+    "between_applies_min_sec": 4.5,
+    "between_applies_max_sec": 8.0
+  },
+  "profile_refresh": {
+    "update_resume": true,
+    "resume_date_footer": true,
+    "update_headline": true,
+    "update_summary": true,
+    "headline_variants": [
+      "Java Backend Developer | Spring Boot | RESTful APIs | Microservices | MySQL",
+      "Software Engineer | Java, Spring Boot, REST APIs & Distributed Backend Systems",
+      "Java Backend Engineer | Spring Boot, JPA/Hibernate, MySQL & Scalable APIs",
+      "Backend Software Developer | Core Java, Spring Boot, Microservices & SQL"
+    ],
+    "summary_variants": [
+      "Software Developer specializing in Java, Spring Boot, and RESTful API engineering. Experienced in building robust backend services, scalable microservices architectures, and database persistence with MySQL.",
+      "Backend Engineer proficient in Core Java, Spring Boot, and secure RESTful integrations. Passionate about clean modular code, API optimization, and database architecture.",
+      "Results-oriented Java Developer experienced in designing REST APIs, microservices, and database persistence using Spring Boot, Hibernate, and MySQL."
+    ]
+  }
+}

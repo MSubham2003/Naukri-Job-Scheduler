@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.example
+tests/
+auth_state.json
+storage_state.json
+*.log
+.pytest_cache/
+.DS_Store
+data/
+reports/
+logs/
+Subham_Mohanty_Resume_*.pdf

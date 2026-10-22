@@ -1,0 +1,28 @@
+{
+  "resume_path": "assets/Subham_Resume.pdf",
+  "total_experience_years": 1.8,
+  "skills_experience": {
+    "java": 1.8,
+    "spring boot": 1.8,
+    "rest api": 1.8,
+    "microservices": 1.0,
+    "mysql": 1.8,
+    "react": 1.0,
+    "docker": 1.0,
+    "git": 1.8
+  },
+  "notice_period_days": 90,
+  "current_ctc_lpa": 4.5,
+  "expected_ctc_lpa": 8.0,
+  "current_city": "Bhubaneswar",
+  "willing_to_relocate": "Yes",
+  "willing_to_work_shifts": null,
+  "willing_to_travel": null,
+  "gender": "Male",
+  "highest_qualification": null,
+  "graduation_year": null,
+  "current_designation": null,
+  "date_of_birth": null,
+  "qa_memory_autolearn": true,
+  "custom_answers": {}
+}
